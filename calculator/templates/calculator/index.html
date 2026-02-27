@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ultimate Galaxy Calculator Suite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#000814;min-height:100vh;color:white;padding:20px;overflow-x:hidden;position:relative;}
+#galaxy{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
+.star{position:absolute;background:white;border-radius:50%;opacity:0.8;animation:moveStar linear infinite,twinkle 2s infinite alternate;}
+@keyframes moveStar{from{transform:translateY(-100vh);}to{transform:translateY(100vh);}}
+@keyframes twinkle{0%{opacity:0.3;}100%{opacity:1;}}
+.main-heading{text-align:center;font-size:40px;font-weight:800;background:linear-gradient(45deg,#00f2fe,#4facfe,#00f2fe);background-size:300% 300%;-webkit-background-clip:text;color:transparent;animation:shine 5s infinite linear;margin-bottom:40px;}
+@keyframes shine{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.container{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;max-width:1600px;margin:auto;}
+@media(max-width:900px){.container{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.container{grid-template-columns:1fr;}}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);border-radius:20px;padding:20px;box-shadow:0 15px 40px rgba(0,0,0,0.6);transition:0.3s;}
+.card:hover{transform:translateY(-8px);}
+.card h2{margin-bottom:15px;color:#00f2fe;font-size:18px;}
+input{width:100%;padding:10px;margin:8px 0;border:none;border-radius:10px;}
+button{padding:8px 12px;margin:5px 4px;border:none;border-radius:10px;cursor:pointer;background:#00c6ff;color:white;font-size:12px;box-shadow:0 0 10px #00c6ff;transition:0.3s;}
+button:hover{transform:scale(1.1);}
+.result-box{margin-top:10px;background:rgba(0,0,0,0.4);padding:10px;border-radius:10px;min-height:30px;}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
+</style>
+</head>
+
+<body>
+
+<div id="galaxy"></div>
+<h1 class="main-heading">🚀 Ultimate Galaxy Calculator Suite 🚀</h1>
+
+<div class="container">
+
+<!-- BMI -->
+<div class="card">
+<h2>BMI Calculator</h2>
+<input type="number" id="bmiW" placeholder="Weight (kg)">
+<input type="number" id="bmiH" placeholder="Height (m)">
+<button onclick="playSound(); bmi()">Result</button>
+<button onclick="playSound(); saveResult('bmiR')">Save</button>
+<button onclick="playSound(); clearResult('bmiR')">Delete</button>
+<button onclick="playSound(); exportPDF('bmiR')">Export PDF</button>
+<div class="result-box" id="bmiR"></div>
+</div>
+
+<!-- EMI -->
+<div class="card">
+<h2>EMI Calculator</h2>
+<input type="number" id="loan" placeholder="Loan Amount">
+<input type="number" id="rate" placeholder="Interest Rate %">
+<input type="number" id="yrs" placeholder="Years">
+<button onclick="playSound(); calculateEMI()">Result</button>
+<button onclick="playSound(); saveResult('emiR')">Save</button>
+<button onclick="playSound(); clearResult('emiR')">Delete</button>
+<button onclick="playSound(); exportPDF('emiR')">Export PDF</button>
+<div class="result-box" id="emiR"></div>
+</div>
+
+<!-- GST -->
+<div class="card">
+<h2>GST Calculator</h2>
+<input type="number" id="gAmt" placeholder="Amount">
+<input type="number" id="gRate" placeholder="GST %">
+<button onclick="playSound(); gst()">Result</button>
+<button onclick="playSound(); saveResult('gstR')">Save</button>
+<button onclick="playSound(); clearResult('gstR')">Delete</button>
+<button onclick="playSound(); exportPDF('gstR')">Export PDF</button>
+<div class="result-box" id="gstR"></div>
+</div>
+
+<!-- Discount -->
+<div class="card">
+<h2>Discount Calculator</h2>
+<input type="number" id="dAmt" placeholder="Price">
+<input type="number" id="dRate" placeholder="Discount %">
+<button onclick="playSound(); discount()">Result</button>
+<button onclick="playSound(); saveResult('disR')">Save</button>
+<button onclick="playSound(); clearResult('disR')">Delete</button>
+<button onclick="playSound(); exportPDF('disR')">Export PDF</button>
+<div class="result-box" id="disR"></div>
+</div>
+
+<!-- Simple Interest -->
+<div class="card">
+<h2>Simple Interest</h2>
+<input type="number" id="p" placeholder="Principal">
+<input type="number" id="r" placeholder="Rate %">
+<input type="number" id="t" placeholder="Time">
+<button onclick="playSound(); simpleInterest()">Result</button>
+<button onclick="playSound(); saveResult('siR')">Save</button>
+<button onclick="playSound(); clearResult('siR')">Delete</button>
+<button onclick="playSound(); exportPDF('siR')">Export PDF</button>
+<div class="result-box" id="siR"></div>
+</div>
+
+<!-- Compound Interest -->
+<div class="card">
+<h2>Compound Interest</h2>
+<input type="number" id="cp" placeholder="Principal">
+<input type="number" id="cr" placeholder="Rate %">
+<input type="number" id="ct" placeholder="Time">
+<button onclick="playSound(); compoundInterest()">Result</button>
+<button onclick="playSound(); saveResult('ciR')">Save</button>
+<button onclick="playSound(); clearResult('ciR')">Delete</button>
+<button onclick="playSound(); exportPDF('ciR')">Export PDF</button>
+<div class="result-box" id="ciR"></div>
+</div>
+
+<!-- Age -->
+<div class="card">
+<h2>Age Calculator</h2>
+<input type="date" id="dob">
+<button onclick="playSound(); calculateAge()">Result</button>
+<button onclick="playSound(); saveResult('ageR')">Save</button>
+<button onclick="playSound(); clearResult('ageR')">Delete</button>
+<button onclick="playSound(); exportPDF('ageR')">Export PDF</button>
+<div class="result-box" id="ageR"></div>
+</div>
+
+<!-- Percentage -->
+<div class="card">
+<h2>Percentage Calculator</h2>
+<input type="number" id="v" placeholder="Value">
+<input type="number" id="tot" placeholder="Total">
+<button onclick="playSound(); percentage()">Result</button>
+<button onclick="playSound(); saveResult('perR')">Save</button>
+<button onclick="playSound(); clearResult('perR')">Delete</button>
+<button onclick="playSound(); exportPDF('perR')">Export PDF</button>
+<div class="result-box" id="perR"></div>
+</div>
+
+<!-- Scientific -->
+<div class="card">
+<h2>Scientific Calculator</h2>
+<input type="text" id="display">
+<div class="calc-grid">
+<button onclick="append('7')">7</button>
+<button onclick="append('8')">8</button>
+<button onclick="append('9')">9</button>
+<button onclick="append('/')">÷</button>
+<button onclick="append('4')">4</button>
+<button onclick="append('5')">5</button>
+<button onclick="append('6')">6</button>
+<button onclick="append('*')">×</button>
+<button onclick="append('1')">1</button>
+<button onclick="append('2')">2</button>
+<button onclick="append('3')">3</button>
+<button onclick="append('-')">−</button>
+<button onclick="append('0')">0</button>
+<button onclick="append('.')">.</button>
+<button onclick="append('+')">+</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="calculate()">=</button>
+<button onclick="append('**')">^</button>
+<button onclick="append('Math.PI')">π</button>
+<button onclick="append('Math.sqrt(')">√</button>
+<button onclick="append('Math.sin(')">sin</button>
+<button onclick="append('Math.cos(')">cos</button>
+<button onclick="append('Math.tan(')">tan</button>
+<button onclick="append('Math.log10(')">log</button>
+</div>
+<button onclick="saveResult('display')">Save</button>
+<button onclick="clearDisplay()">Delete</button>
+<button onclick="exportPDF('display')">Export PDF</button>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+const galaxy=document.getElementById("galaxy");
+for(let i=0;i<300;i++){
+let star=document.createElement("div");
+star.className="star";
+let size=Math.random()*3;
+star.style.width=size+"px";
+star.style.height=size+"px";
+star.style.left=Math.random()*100+"%";
+star.style.animationDuration=(Math.random()*20+10)+"s";
+galaxy.appendChild(star);
+}
+
+function playSound(){
+const ctx=new (window.AudioContext||window.webkitAudioContext)();
+const osc=ctx.createOscillator();
+const gain=ctx.createGain();
+osc.connect(gain);
+gain.connect(ctx.destination);
+osc.frequency.value=600;
+gain.gain.value=0.1;
+osc.start();
+osc.stop(ctx.currentTime+0.08);
+}
+
+function saveResult(id){
+let value=document.getElementById(id).innerText||document.getElementById(id).value;
+localStorage.setItem(id,value);
+alert("Saved!");
+}
+
+function clearResult(id){
+document.getElementById(id).innerHTML="";
+}
+
+function exportPDF(id){
+const {jsPDF}=window.jspdf;
+let doc=new jsPDF();
+let value=document.getElementById(id).innerText||document.getElementById(id).value;
+doc.text(value,10,10);
+doc.save("result.pdf");
+}
+
+function bmi(){bmiR.innerHTML="BMI: "+(bmiW.value/(bmiH.value*bmiH.value)).toFixed(2);}
+function calculateEMI(){let p=loan.value,r=rate.value/100/12,n=yrs.value*12;emiR.innerHTML="EMI: "+((p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)).toFixed(2);}
+function gst(){gstR.innerHTML="GST: "+(gAmt.value*gRate.value/100).toFixed(2);}
+function discount(){disR.innerHTML="Save: "+(dAmt.value*dRate.value/100).toFixed(2);}
+function simpleInterest(){siR.innerHTML="SI: "+((p.value*r.value*t.value)/100).toFixed(2);}
+function compoundInterest(){ciR.innerHTML="CI: "+(cp.value*Math.pow((1+cr.value/100),ct.value)-cp.value).toFixed(2);}
+function calculateAge(){ageR.innerHTML="Age: "+(new Date().getFullYear()-new Date(dob.value).getFullYear());}
+function percentage(){perR.innerHTML="Result: "+((v.value/tot.value)*100).toFixed(2)+"%";}
+
+function append(value){display.value+=value;}
+function calculate(){try{display.value=eval(display.value);}catch{display.value="Error";}}
+function clearDisplay(){display.value="";}
+</script>
+
+</body>
+</html>
